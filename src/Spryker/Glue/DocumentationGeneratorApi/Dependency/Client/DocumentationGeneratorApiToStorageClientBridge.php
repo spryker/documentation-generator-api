@@ -22,13 +22,6 @@ class DocumentationGeneratorApiToStorageClientBridge implements DocumentationGen
         $this->storageClient = $storageClient;
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     * @param int|null $ttl
-     *
-     * @return void
-     */
     public function set(string $key, string $value, ?int $ttl = null): void
     {
         $this->storageClient->set($key, $value, $ttl);

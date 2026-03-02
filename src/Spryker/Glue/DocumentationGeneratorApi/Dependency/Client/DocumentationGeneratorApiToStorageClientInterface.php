@@ -9,12 +9,5 @@ namespace Spryker\Glue\DocumentationGeneratorApi\Dependency\Client;
 
 interface DocumentationGeneratorApiToStorageClientInterface
 {
-    /**
-     * @param string $key
-     * @param string $value
-     * @param int|null $ttl
-     *
-     * @return void
-     */
     public function set(string $key, string $value, ?int $ttl = null): void;
 }

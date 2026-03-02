@@ -62,11 +62,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
      */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
@@ -82,11 +77,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addApiApplicationProviderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_API_APPLICATION_PROVIDER, function () {
@@ -104,11 +94,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addSchemaFormatterPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SCHEMA_FORMATTER, function () {
@@ -126,11 +111,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addContextExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CONTEXT_EXPANDER, function () {
@@ -140,21 +120,11 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\DocumentationGeneratorApi\Expander\ContextExpanderCollectionInterface $contextExpanderCollection
-     *
-     * @return \Spryker\Glue\DocumentationGeneratorApi\Expander\ContextExpanderCollectionInterface
-     */
     protected function getContextExpanderPlugins(ContextExpanderCollectionInterface $contextExpanderCollection): ContextExpanderCollectionInterface
     {
         return $contextExpanderCollection;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addFilesystem(Container $container): Container
     {
         $container->set(static::FILESYSTEM, function () {
@@ -164,11 +134,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addContentGeneratorStrategyPlugin(Container $container): Container
     {
         $container->set(static::PLUGIN_CONTENT_GENERATOR_STRATEGY, function () {
@@ -186,11 +151,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addInvalidationVoterPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_INVALIDATION_VOTER, function () {
@@ -200,11 +160,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addStorageClient(Container $container): Container
     {
         $container->set(static::CLIENT_STORAGE, function (Container $container) {
@@ -231,11 +186,6 @@ class DocumentationGeneratorApiDependencyProvider extends AbstractBundleDependen
         );
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addUtilEncodingService(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_ENCODING, function (Container $container) {

@@ -134,11 +134,6 @@ class DocumentationGenerator implements DocumentationGeneratorInterface
         }
     }
 
-    /**
-     * @param \Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ApiApplicationProviderPluginInterface $apiApplicationProviderPlugin
-     *
-     * @return \Generated\Shared\Transfer\ApiApplicationSchemaContextTransfer
-     */
     protected function initContext(ApiApplicationProviderPluginInterface $apiApplicationProviderPlugin): ApiApplicationSchemaContextTransfer
     {
         $applicationName = $apiApplicationProviderPlugin->getName();
@@ -148,12 +143,6 @@ class DocumentationGenerator implements DocumentationGeneratorInterface
             ->setFileName($this->documentationGeneratorApiConfig->getGeneratedFullFileName($applicationName));
     }
 
-    /**
-     * @param \Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ApiApplicationProviderPluginInterface $apiApplicationProviderPlugin
-     * @param \Generated\Shared\Transfer\ApiApplicationSchemaContextTransfer $apiApplicationSchemaContextTransfer
-     *
-     * @return \Generated\Shared\Transfer\ApiApplicationSchemaContextTransfer
-     */
     protected function expandContext(
         ApiApplicationProviderPluginInterface $apiApplicationProviderPlugin,
         ApiApplicationSchemaContextTransfer $apiApplicationSchemaContextTransfer

@@ -41,9 +41,6 @@ class DocumentationGeneratorTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -51,9 +48,6 @@ class DocumentationGeneratorTest extends Unit
         $this->testOutputFilePath = codecept_output_dir() . static::TEST_FILE_NAME;
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
@@ -63,9 +57,6 @@ class DocumentationGeneratorTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testGenerateDocumentationCreatesFileSuccessfully(): void
     {
         //Arrange

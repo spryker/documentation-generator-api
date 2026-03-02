@@ -38,9 +38,6 @@ class ApiGenerateDocumentationConsole extends Console
      */
     protected const COMMAND_NAME = 'api:generate:documentation';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -60,12 +57,6 @@ class ApiGenerateDocumentationConsole extends Console
             ->setDescription('Generates documentation for API applications.');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $application = $input->getOption('application');

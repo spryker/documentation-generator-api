@@ -42,12 +42,6 @@ class InvalidationVerifier implements InvalidationVerifierInterface
         $this->documentationGeneratorApiConfig = $documentationGeneratorApiConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DocumentationInvalidationVoterRequestTransfer $documentationInvalidationVoterRequestTransfer
-     * @param mixed $application
-     *
-     * @return bool
-     */
     public function isInvalidated(
         DocumentationInvalidationVoterRequestTransfer $documentationInvalidationVoterRequestTransfer,
         mixed $application
@@ -65,11 +59,6 @@ class InvalidationVerifier implements InvalidationVerifierInterface
         return false;
     }
 
-    /**
-     * @param mixed $application
-     *
-     * @return bool
-     */
     protected function hasSchemaFile(mixed $application): bool
     {
         foreach ($this->apiApplicationProviderPlugins as $apiApplicationProviderPlugin) {

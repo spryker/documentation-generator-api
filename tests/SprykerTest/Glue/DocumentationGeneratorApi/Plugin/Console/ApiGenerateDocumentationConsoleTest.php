@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerTest\Glue\DocumentationGeneratorApi\Console;
+namespace SprykerTest\Glue\DocumentationGeneratorApi\Plugin\Console;
 
 use Codeception\Test\Unit;
 use Spryker\Glue\DocumentationGeneratorApi\DocumentationGeneratorApiDependencyProvider;
@@ -18,6 +18,7 @@ use Spryker\Glue\DocumentationGeneratorOpenApi\Plugin\DocumentationGeneratorApi\
  * @group SprykerTest
  * @group Glue
  * @group DocumentationGeneratorApi
+ * @group Plugin
  * @group Console
  * @group ApiGenerateDocumentationConsoleTest
  * Add your own group annotations below this line
@@ -39,9 +40,6 @@ class ApiGenerateDocumentationConsoleTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testExecuteSuccessful(): void
     {
         //Arrange
@@ -63,9 +61,6 @@ class ApiGenerateDocumentationConsoleTest extends Unit
         $this->assertSame(ApiGenerateDocumentationConsole::CODE_SUCCESS, $commandTester->getStatusCode());
     }
 
-    /**
-     * @return void
-     */
     public function testExecuteWithInvalidatedIntervalWillReturnSuccessful(): void
     {
         //Arrange

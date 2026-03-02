@@ -31,9 +31,6 @@ class DocumentationGeneratorApiFactory extends AbstractFactory
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::PLUGINS_API_APPLICATION_PROVIDER);
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApi\Expander\ContextExpanderCollectionInterface
-     */
     public function getContextExpanderPlugins(): ContextExpanderCollectionInterface
     {
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::PLUGINS_CONTEXT_EXPANDER);
@@ -47,17 +44,11 @@ class DocumentationGeneratorApiFactory extends AbstractFactory
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::PLUGINS_SCHEMA_FORMATTER);
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApi\Dependency\External\DocumentationGeneratorApiToFilesystemInterface
-     */
     public function getFilesystem(): DocumentationGeneratorApiToFilesystemInterface
     {
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::FILESYSTEM);
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApi\Generator\DocumentationGeneratorInterface
-     */
     public function createDocumentationGenerator(): DocumentationGeneratorInterface
     {
         return new DocumentationGenerator(
@@ -72,17 +63,11 @@ class DocumentationGeneratorApiFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ContentGeneratorStrategyPluginInterface
-     */
     public function getContentGeneratorStrategyPlugin(): ContentGeneratorStrategyPluginInterface
     {
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::PLUGIN_CONTENT_GENERATOR_STRATEGY);
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApi\InvalidationVerifier\InvalidationVerifierInterface
-     */
     public function createInvalidationVerifier(): InvalidationVerifierInterface
     {
         return new InvalidationVerifier(
@@ -100,17 +85,11 @@ class DocumentationGeneratorApiFactory extends AbstractFactory
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::PLUGINS_INVALIDATION_VOTER);
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApi\Dependency\Client\DocumentationGeneratorApiToStorageClientInterface
-     */
     public function getStorageClient(): DocumentationGeneratorApiToStorageClientInterface
     {
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::CLIENT_STORAGE);
     }
 
-    /**
-     * @return \Spryker\Glue\DocumentationGeneratorApi\Dependency\Service\DocumentationGenerationApiToUtilEncodingServiceInterface
-     */
     public function getUtilEncodingService(): DocumentationGenerationApiToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(DocumentationGeneratorApiDependencyProvider::SERVICE_UTIL_ENCODING);
