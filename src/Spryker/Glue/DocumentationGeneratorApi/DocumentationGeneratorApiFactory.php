@@ -7,6 +7,9 @@
 
 namespace Spryker\Glue\DocumentationGeneratorApi;
 
+use Spryker\Glue\DocumentationGeneratorApi\Contributor\ApiPlatformOpenApiContributor;
+use Spryker\Glue\DocumentationGeneratorApi\Contributor\OpenApiContributorInterface;
+use Spryker\Glue\DocumentationGeneratorApi\Contributor\SymfonyProcessFactory;
 use Spryker\Glue\DocumentationGeneratorApi\Dependency\Client\DocumentationGeneratorApiToStorageClientInterface;
 use Spryker\Glue\DocumentationGeneratorApi\Dependency\External\DocumentationGeneratorApiToFilesystemInterface;
 use Spryker\Glue\DocumentationGeneratorApi\Dependency\Service\DocumentationGenerationApiToUtilEncodingServiceInterface;
@@ -15,14 +18,19 @@ use Spryker\Glue\DocumentationGeneratorApi\Generator\DocumentationGenerator;
 use Spryker\Glue\DocumentationGeneratorApi\Generator\DocumentationGeneratorInterface;
 use Spryker\Glue\DocumentationGeneratorApi\InvalidationVerifier\InvalidationVerifier;
 use Spryker\Glue\DocumentationGeneratorApi\InvalidationVerifier\InvalidationVerifierInterface;
+use Spryker\Glue\DocumentationGeneratorApi\Merger\OpenApiMerger;
+use Spryker\Glue\DocumentationGeneratorApi\Merger\OpenApiMergerInterface;
 use Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ContentGeneratorStrategyPluginInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
+use Spryker\Shared\Log\LoggerTrait;
 
 /**
  * @method \Spryker\Glue\DocumentationGeneratorApi\DocumentationGeneratorApiConfig getConfig()
  */
 class DocumentationGeneratorApiFactory extends AbstractFactory
 {
+    use LoggerTrait;
+
     /**
      * @return array<\Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ApiApplicationProviderPluginInterface>
      */
@@ -60,7 +68,29 @@ class DocumentationGeneratorApiFactory extends AbstractFactory
             $this->getContentGeneratorStrategyPlugin(),
             $this->getStorageClient(),
             $this->getUtilEncodingService(),
+            $this->createApiPlatformOpenApiContributor(),
+            $this->createOpenApiMerger(),
+            $this->getLogger(),
         );
+    }
+
+    public function createOpenApiMerger(): OpenApiMergerInterface
+    {
+        return new OpenApiMerger();
+    }
+
+    public function createApiPlatformOpenApiContributor(): OpenApiContributorInterface
+    {
+        return new ApiPlatformOpenApiContributor(
+            $this->getConfig(),
+            $this->createSymfonyProcessFactory(),
+            $this->getLogger(),
+        );
+    }
+
+    public function createSymfonyProcessFactory(): SymfonyProcessFactory
+    {
+        return new SymfonyProcessFactory();
     }
 
     public function getContentGeneratorStrategyPlugin(): ContentGeneratorStrategyPluginInterface

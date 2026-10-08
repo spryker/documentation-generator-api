@@ -4,9 +4,11 @@
     "description": "DocumentationGeneratorApi module",
     "license": "proprietary",
     "require": {
+        "cebe/php-openapi": "^1.7",
         "php": ">=8.3",
         "spryker/documentation-generator-api-extension": "^1.1.0",
         "spryker/kernel": "^3.30.0",
+        "spryker/log": "^3.0.0",
         "spryker/storage": "^3.0.0",
         "spryker/symfony": "^3.5.0",
         "spryker/transfer": "^3.27.0",
@@ -17,6 +19,9 @@
         "spryker/console": "*",
         "spryker/documentation-generator-open-api": "*",
         "spryker/testify": "*"
+    },
+    "suggest": {
+        "spryker/api-platform": "Required for the generator to merge API Platform endpoints into the generated API application specifications. Without it, the specifications are produced unchanged."
     },
     "autoload": {
         "psr-4": {

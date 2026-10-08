@@ -7,12 +7,17 @@
 
 namespace Spryker\Glue\DocumentationGeneratorApi\Generator;
 
+use cebe\openapi\Writer;
 use Generated\Shared\Transfer\ApiApplicationSchemaContextTransfer;
+use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
+use Spryker\Glue\DocumentationGeneratorApi\Contributor\OpenApiContributorInterface;
 use Spryker\Glue\DocumentationGeneratorApi\Dependency\Client\DocumentationGeneratorApiToStorageClientInterface;
 use Spryker\Glue\DocumentationGeneratorApi\Dependency\External\DocumentationGeneratorApiToFilesystemInterface;
 use Spryker\Glue\DocumentationGeneratorApi\Dependency\Service\DocumentationGenerationApiToUtilEncodingServiceInterface;
 use Spryker\Glue\DocumentationGeneratorApi\DocumentationGeneratorApiConfig;
 use Spryker\Glue\DocumentationGeneratorApi\Expander\ContextExpanderCollectionInterface;
+use Spryker\Glue\DocumentationGeneratorApi\Merger\OpenApiMergerInterface;
 use Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ApiApplicationProviderPluginInterface;
 use Spryker\Glue\DocumentationGeneratorApiExtension\Dependency\Plugin\ContentGeneratorStrategyPluginInterface;
 
@@ -86,7 +91,10 @@ class DocumentationGenerator implements DocumentationGeneratorInterface
         array $schemaFormatterPlugins,
         ContentGeneratorStrategyPluginInterface $contentGeneratorStrategyPlugin,
         DocumentationGeneratorApiToStorageClientInterface $storageClient,
-        DocumentationGenerationApiToUtilEncodingServiceInterface $utilEncodingService
+        DocumentationGenerationApiToUtilEncodingServiceInterface $utilEncodingService,
+        protected readonly OpenApiContributorInterface $apiPlatformContributor,
+        protected readonly OpenApiMergerInterface $openApiMerger,
+        protected readonly LoggerInterface $logger,
     ) {
         $this->apiApplicationProviderPlugins = $apiApplicationProviderPlugins;
         $this->contextExpanderCollection = $contextExpanderCollection;
@@ -112,6 +120,10 @@ class DocumentationGenerator implements DocumentationGeneratorInterface
                 $formattedData = $this->formatContext($apiApplicationSchemaContextTransfer);
                 $documentationContent = $this->contentGeneratorStrategyPlugin->generateContent($formattedData);
 
+                $documentationContent = $this->mergeApiPlatformDocumentation(
+                    $apiApplicationSchemaContextTransfer->getApplicationOrFail(),
+                    $documentationContent,
+                );
                 $this->filesystem->dumpFile($apiApplicationSchemaContextTransfer->getFileNameOrFail(), $documentationContent);
                 $time = filemtime($apiApplicationSchemaContextTransfer->getFileNameOrFail());
 
@@ -131,6 +143,27 @@ class DocumentationGenerator implements DocumentationGeneratorInterface
                     $apiSchemaStorageData,
                 );
             }
+        }
+    }
+
+    protected function mergeApiPlatformDocumentation(string $applicationName, string $documentationContent): string
+    {
+        $contribution = $this->apiPlatformContributor->contribute($applicationName);
+        if ($contribution === null) {
+            return $documentationContent;
+        }
+
+        try {
+            return Writer::writeToYaml(
+                $this->openApiMerger->mergeYaml($documentationContent, [$contribution]),
+            );
+        } catch (InvalidArgumentException $exception) {
+            $this->logger->warning(
+                'Failed to merge API Platform OpenAPI into API application spec',
+                ['application' => $applicationName, 'exception' => $exception],
+            );
+
+            return $documentationContent;
         }
     }
 
